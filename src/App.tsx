@@ -163,7 +163,9 @@ export default function App() {
   }, [view]);
 
   useEffect(() => {
-    const newSocket = io();
+    // Connect to the backend. In production, you can set VITE_BACKEND_URL in your environment variables.
+    const backendUrl = import.meta.env.VITE_BACKEND_URL || window.location.origin;
+    const newSocket = io(backendUrl);
     setSocket(newSocket);
 
     newSocket.on("roomCreated", ({ code, room }) => {
